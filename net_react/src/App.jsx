@@ -3,8 +3,10 @@ import UserCard from "./component/UserCard";
 import NewParticipans from "./component/NewParticipants";
 import './App.css';
 import { useDispatch, useSelector } from "react-redux";
+import { pipeTime } from "./helpers";
+import {Route, Switch} from 'react-router-dom';
 
-function App() {
+const Dashboard = () => {
   const dispatch = useDispatch();
   const participantsData = useSelector(state => state.participants);
   const [participants, setParticipant] = useState([...participantsData]);
@@ -70,6 +72,27 @@ function App() {
     </div>
 	</div>
 </div>
+  );
+}
+
+const ParticipantInfo = () => {
+  return (
+    <div class="card">
+            <p></p>
+            <p>Id: {props.user.id}</p>
+            <p>Name: {props.user.name}</p>
+            <p>Surname: {props.user.surname}</p>
+            <p>Time: {pipeTime(props.user.time)}</p>
+        </div>
+  )
+}
+
+function App() {
+  return (
+    <Switch>
+      <Route exaxt path = "/" component = {Dashboard}/>
+      <Route exaxt path = "/:id" component = {Dashboard}/>
+    </Switch>
   );
 }
 

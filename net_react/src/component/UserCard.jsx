@@ -1,6 +1,7 @@
 import { pipeTime } from "../helpers"
 import React from "react"
 import { useDispatch, useSelector } from "react-redux";
+import {Link} from 'react-router-dom';
 
 
 const UserCard = (props) => {
@@ -13,7 +14,7 @@ const UserCard = (props) => {
   const winner = useSelector(store => store.winner);
 
     return (
-      <div class="card">
+      <div className="card">
             <p></p>
             <p>Id: {props.user.id}</p>
             <p>Name: {props.user.name}</p>
@@ -24,6 +25,7 @@ const UserCard = (props) => {
             :
             <p></p>
             }
+            <p><Link to={'/'+props.user.id} >Show user info</Link></p>
         </div>
     )
   }

@@ -4,7 +4,7 @@ import NewParticipans from "./component/NewParticipants";
 import './App.css';
 import { useDispatch, useSelector } from "react-redux";
 import { pipeTime } from "./helpers";
-import {Route, Switch} from 'react-router-dom';
+import {Route, Switch, Link} from 'react-router-dom';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -75,14 +75,17 @@ const Dashboard = () => {
   );
 }
 
-const ParticipantInfo = () => {
+const ParticipantInfo = (props) => {
+  const user = useSelector(state => state.participants.find(u => u.id == props.match.params.id))
+  if(!user) return <h1><Link to='/'>Home</Link></h1>
   return (
-    <div class="card">
+    <div className="card">
             <p></p>
-            <p>Id: {props.user.id}</p>
-            <p>Name: {props.user.name}</p>
-            <p>Surname: {props.user.surname}</p>
-            <p>Time: {pipeTime(props.user.time)}</p>
+            <p>Id: {user.id}</p>
+            <p>Name: {user.name}</p>
+            <p>Surname: {user.surname}</p>
+            <p>Time: {pipeTime(user.time)}</p>
+            <Link to="/">Home</Link>
         </div>
   )
 }
@@ -90,10 +93,10 @@ const ParticipantInfo = () => {
 function App() {
   return (
     <Switch>
-      <Route exaxt path = "/" component = {Dashboard}/>
-      <Route exaxt path = "/:id" component = {Dashboard}/>
+      <Route exact path = "/" component = {Dashboard}/>
+      <Route exact path = "/:id" component = {ParticipantInfo}/>
     </Switch>
-  );
+  )
 }
 
 export default App;

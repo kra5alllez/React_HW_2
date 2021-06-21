@@ -11,14 +11,14 @@ const Dashboard = () => {
   const participantsData = useSelector(state => state.participants);
   const [participants, setParticipant] = useState([...participantsData]);
   const [state, setState] = useState(true);
-  const [sort, setSort] = useState(participants);
+  const [sort, setSort] = useState(...participants);
   const winner = useSelector(store => store.winner);
 
   useEffect(()=>setParticipant([...participantsData]), [participantsData])
 
   const handleChange = (event) => {
-    setState(!event.target.value > 0)
-    setSort(participants)
+    setState(!event.target.value.length > 0)
+    setSort(...participants)
     const result = [];
     participants.forEach(user => {
        if(user.name.toLowerCase().includes(event.target.value.toLowerCase()) || user.id.includes(event.target.value)){
